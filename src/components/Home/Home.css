@@ -1,0 +1,41 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 98%;
+    border-radius: 40px;
+    background-color: #F0F3FF;
+    margin-top: 6vw;
+    height: 100vh;
+}
+
+.monday-platform{
+    margin-top: 4vw;
+    height:3vh;
+    width:16vw;
+}
+
+.home-review{
+    display:flex;
+}
+.review-title{
+    font-size: 80px;
+    font-weight: 200;
+    text-align: center;
+    justify-self: center;
+    color:#333
+}
+
+.review-text{
+    color:#333;
+    font-size:20px;
+    font-weight: 400;
+    width:40%;
+    text-align: center;
+}
+
+.review-smalltext{
+    font-size: 15px;
+    font-weight: 100;
+    color:#333;
+}
