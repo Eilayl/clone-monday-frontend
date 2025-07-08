@@ -5,12 +5,13 @@
     width: 98%;
     border-radius: 40px;
     background-color: #F0F3FF;
-    margin-top: 6vw;
+    margin-top: 11vh;
+    justify-self: center;
     height: 100vh;
 }
 
 .monday-platform{
-    margin-top: 4vw;
+    margin-top: 6vh;
     height:3vh;
     width:16vw;
 }
@@ -38,4 +39,17 @@
     font-size: 15px;
     font-weight: 100;
     color:#333;
+}
+
+.home-mobile-container{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top:11vh;
+    justify-content: center;
+}
+
+.review-title-mobile{
+    font-weight: bolder;
+    font-size: 40px;
 }

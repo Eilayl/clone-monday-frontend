@@ -15,7 +15,7 @@ function App() {
         <Route path="*" element={<NotFound/>}/> 
       </Routes>
     </Router>
-    </ScreenSizesProvider>//asd
+    </ScreenSizesProvider>
   )
 }
 

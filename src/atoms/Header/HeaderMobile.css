@@ -1,0 +1,62 @@
+.icon-container {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.icon {
+  position: absolute;
+  top: 0; left: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+  user-select: none;
+}
+
+.icon-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.icon-hidden {
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.header-open{
+  background-color: white;
+  width:100vw;
+  height:100vh;
+  align-self: flex-start;
+  position: fixed;
+  top:0;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.header-open.visible{
+  opacity:1;
+}
+.items{
+  display:flex;
+  flex-direction: column;
+  margin-top: 10vh;
+}
+.items span{
+  color:black;
+  font-size: 18px;
+  font-weight: 100;
+  padding:2%;
+  border-bottom: 1px solid #f0f3ff;
+  width:80%;
+  margin-left: 1vw;
+  text-align: left;
+}
+
+.return-to-homepage{
+  font-size: 14px;
+  justify-self: center;
+  display:flex;
+  padding:5%;
+}
