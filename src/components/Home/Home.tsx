@@ -7,6 +7,8 @@ import './Home.css'
 import { HeaderMobile } from '../../atoms/Header/HeaderMobile';
 import { useScreenWidth } from '@/context/ScreenSizesProvider';
 import { HomeMobile } from './HomeMobile';
+import { GoogleLogin } from '@react-oauth/google';
+import { ContinueWithGoogle } from '@/atoms/ContinueWithGoogle';
 
 export default function Home() {
   let isMobile = useScreenWidth() < 1300 ? true : false  
@@ -20,7 +22,9 @@ export default function Home() {
                 <button className="purple-button" onClick={() => {alert('hi')}}>Get Started
           <img src={arrowicon} className="header-arrow-icon"/>
         </button>
+        <ContinueWithGoogle/>
         <p className="review-smalltext">No credit card needed  ✦  Unlimited time on Free plan</p>
+        
         </div> : <HomeMobile/>}
     </div>
   )

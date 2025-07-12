@@ -53,3 +53,12 @@
     font-weight: bolder;
     font-size: 40px;
 }
+
+.sign-in-with-google-mobile{
+    display: flex;
+    width:80%;
+    padding:5%;
+    justify-content: center;
+    align-self: center;
+    z-index: -1;
+}

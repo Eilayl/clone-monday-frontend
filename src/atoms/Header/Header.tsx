@@ -19,7 +19,7 @@ export const Header = () => {
       </div>
       <div className="header-right-side">
         <span>Pricing</span>
-        <span>Log in</span>
+        <span onClick={() => navigate('users/sign_up_new')}>Log in</span>
         <button className="white-button">Contact Sales</button>
         <button className="purple-button" onClick={() => {navigate('/signin')}}>Get Started
           <img src={arrowicon} className="header-arrow-icon"/>
