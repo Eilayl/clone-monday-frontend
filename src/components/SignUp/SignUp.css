@@ -5,18 +5,25 @@
 }
 .welcome-image{
     height:100vh;
-    aspect-ratio: 1/1.2;
+    width:40vw;
     display: flex;
     justify-self: flex-end;
 }
 
+.remain-width{
+  display:flex;
+  width:60vw;
+  justify-content: center;
+  align-items: center;
+}
 .signup-text-container{
-    width:100%;
+    width:50%;
+    display:flex;
     text-align: center;
     flex-direction: column;
+    text-align: center;
     align-self: center;
     align-items: center;
-    display:flex;
 }
 
 .signup-title{
@@ -41,7 +48,6 @@
 .divider .line {
   flex: 1;
   height: 1px;
-  width:5vw;
   background-color: #ccc;
   border: none;
 }
@@ -54,6 +60,51 @@
 
 .signup-input{
   height:5vh;
-  font-size: 20px;
-  width:fit-content;
+  width:100%;
+  font-size: 17px;
+  border-radius:5px;
+}
+
+.signup-input::placeholder{
+  padding-inline-start: 2%;
+}
+
+.signup-continue{
+  background-color: #0073ea;
+  border-radius: 5px;
+  border: none;
+  color:white;
+  width:100%;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 2vh;
+  height:6vh;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+}
+
+.terms-and-privacy-note{
+  font-size: 18px;
+  width:60%;
+  text-align: center;
+  padding:2%;
+
+}
+
+a:active, a:link, a:visited{
+  color:#1f76c2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-login-direction{
+  font-size: 18px;
+  margin-top: 15vh;
+}
+
+.signup-error{
+  color:red;
+  display:flex;
+  align-self: flex-start;
 }

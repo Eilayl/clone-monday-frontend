@@ -9,7 +9,7 @@ export const HomeMobile = () => {
             <span className="review-title-mobile">Your go-to<br/> work platform</span>
             <span className="review-small-text">or</span>
             <input className="email-input" placeholder="Enter your work email"/>
-            <ContinueWithGoogle style={{width:'80%', alignSelf:'center', marginTop:'5vh'}}/>
+            <ContinueWithGoogle style={{width:'80%', alignSelf:'center', marginTop:'5vh'}} navigation={''}/>
         </div>
     )
 }

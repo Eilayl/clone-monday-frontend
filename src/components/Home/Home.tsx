@@ -1,16 +1,14 @@
 import { Header } from '@/atoms/Header/Header'
 import mondayworkplatform from '@/assets/images/mondayworkplatform.png'
 import arrowicon from "@/assets/images/arrowicon.svg";
-import { useEffect, useState } from 'react';
-
-import './Home.css'
 import { HeaderMobile } from '../../atoms/Header/HeaderMobile';
 import { useScreenWidth } from '@/context/ScreenSizesProvider';
 import { HomeMobile } from './HomeMobile';
-import { GoogleLogin } from '@react-oauth/google';
-import { ContinueWithGoogle } from '@/atoms/ContinueWithGoogle';
+import './Home.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
   let isMobile = useScreenWidth() < 1300 ? true : false  
     return (
     <div>
@@ -19,10 +17,9 @@ export default function Home() {
         <img src={mondayworkplatform} className='monday-platform'/>
         <span className="review-title">Made for work, <br/> designed to love</span>
         <p className='review-text'>Streamline workflows, gain clear visibility across teams, and empower<br/> smarter decisions with AI seamlessly woven into your work.</p>
-                <button className="purple-button" onClick={() => {alert('hi')}}>Get Started
+                <button className="purple-button" onClick={() => {navigate('users/sign_up_new')}}>Get Started
           <img src={arrowicon} className="header-arrow-icon"/>
         </button>
-        <ContinueWithGoogle/>
         <p className="review-smalltext">No credit card needed  ✦  Unlimited time on Free plan</p>
         
         </div> : <HomeMobile/>}
