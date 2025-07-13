@@ -29,7 +29,7 @@ export const SignUp = () => {
             <div className="signup-text-container">
                 <span className="signup-title">Welcome to monday.com</span>
                 <span className="signup-subtitle">Get started - it's free. No credit card needed</span>
-                <ContinueWithGoogle style={{marginTop:'7vh', width:'100%',alignSelf:'center'}} navigation={'../users/createaccount'}/>
+                <ContinueWithGoogle style={{marginTop:'7vh', width:'100%',alignSelf:'center'}} navigation={'../users/signupsteps'}/>
                 <div className="divider" style={{width:'30vw'}}>
                     <hr className="line" />
                     <span className="text">Or</span>

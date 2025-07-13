@@ -24,7 +24,7 @@ export const HomeMobile = () => {
   return (
         <div className="home-mobile-container">
             <span className="review-title-mobile">Your go-to<br/> work platform</span>
-            <ContinueWithGoogle style={{width:'80%', alignSelf:'center', marginTop:'5vh'}} navigation={''}/>
+            <ContinueWithGoogle style={{width:'80%', alignSelf:'center', marginTop:'5vh'}} navigation={'/users/signupsteps'}/>
             <div className="divider" style={{width:'80%'}}>
                     <hr className="line" />
                     <span className="text">Or</span>

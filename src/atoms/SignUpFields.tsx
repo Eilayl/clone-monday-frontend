@@ -24,7 +24,7 @@ export const SignUpFields = ({onChange}: Props) => {
             setPhoneError("Invalid Phone number")
     }
     return(
-        <div>
+        <div className="setup-fields-comp">
             <span className="create-account-title">Create an account</span>
             <span className="setupaccount-field">Full name</span>
                     <input value={name} onChange={(e) => setName(e.target.value)}  onFocus={() => {setNameError('')}} onBlur={() => {CheckFields()}} placeholder="Enter your full name" className="signup-input" style={{border: nameError != '' ? '1px solid red' : '1px solid gainsboro'}}/>

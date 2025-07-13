@@ -10,6 +10,11 @@
     justify-self: flex-end;
 }
 
+@media (max-width:1400px) {
+  .welcome-image{
+    display: none;
+  }
+}
 .remain-width{
   display:flex;
   width:60vw;
@@ -123,9 +128,38 @@ a:active, a:link, a:visited{
     font-size: 12px;
     align-self: center;
   }
-
+  .remain-width{
+    width:100vw;
+  }
+  .signup-text-container{
+    width:100vw;
+    margin-top: 2vh;
+  }
+  .setup-fields{
+    width:100vw;
+    height:60vh;
+  }
+  .signup-input{
+    width:80vw;
+    justify-self:flex-start;
+    padding-inline: 5%;
+  }
+  .signup-continue{
+    width:80vw;
+    align-self: center;
+    display:flex;
+  }
+  .setup-logo{
+    display:none;
+  }
+  .setupaccount-field{
+    justify-self: flex-start;
+  }
   a:active, a:link, a:hover{
     color:black;
     text-decoration: underline;
+  }
+  .setup-fields-comp{
+    padding-inline-start: 4%;
   }
 }
