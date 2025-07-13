@@ -11,7 +11,7 @@ export const HeaderMobile = () => {
     <div>
 
     <div className="header-container">
-      <img src={logo} alt="Logo" className='header-logo' />
+      <img src={logo} alt="Logo" className='header-logo-mobile' />
       <div 
         className="icon-container" 
         onClick={() => setIsOpened(!isOpen)}

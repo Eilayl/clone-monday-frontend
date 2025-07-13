@@ -1,0 +1,165 @@
+.signup-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.welcome-image{
+    height:100vh;
+    width:40vw;
+    display: flex;
+    justify-self: flex-end;
+}
+
+@media (max-width:1400px) {
+  .welcome-image{
+    display: none;
+  }
+}
+.remain-width{
+  display:flex;
+  width:60vw;
+  justify-content: center;
+  align-items: center;
+}
+.signup-text-container{
+    width:50%;
+    display:flex;
+    text-align: center;
+    flex-direction: column;
+    text-align: center;
+    align-self: center;
+}
+
+.signup-title{
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.signup-subtitle{
+    margin-top: 2vh;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.signup-input{
+  height:5vh;
+  width:30vw;
+  font-size: 17px;
+  border-radius:5px;
+  justify-self: flex-start;
+  display: flex;
+}
+
+.signup-input::placeholder{
+  padding-inline-start: 2%;
+}
+
+.signup-continue{
+  background-color: #0073ea;
+  border-radius: 5px;
+  border: none;
+  color:white;
+  width:100%;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 2vh;
+  height:6vh;
+  align-items: center;
+  justify-content: center;
+  display:flex;
+}
+
+.terms-and-privacy-note{
+  font-size: 18px;
+  width:60%;
+  align-self: center;
+  padding:2%;
+
+}
+
+a:active, a:link, a:visited{
+  color:#1f76c2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-login-direction{
+  font-size: 18px;
+  margin-top: 15vh;
+}
+
+.signup-error{
+  color:red;
+  display:flex;
+  align-self: flex-start;
+}
+
+.create-account-title{
+  font-size:30px;
+  padding-inline-start: 1%;
+  display:flex;
+  font-weight: 600;
+}
+
+.setupaccount-field{
+  font-size: 15px;
+  padding:0.5%;
+  text-align: left;
+  font-weight: 400;
+}
+
+.setup-fields .setupaccount-field{
+  margin-top: 4vh;
+  display: flex;
+}
+
+.setup-fields{
+  height: 35vh;
+  width:35vw;
+  overflow-y: scroll;
+}
+.setup-logo{
+  width:10vw;
+  position:absolute;
+  top:10%;
+}
+@media (max-width: 1400px){
+  .terms-and-privacy-note{
+    font-size: 12px;
+    align-self: center;
+  }
+  .remain-width{
+    width:100vw;
+  }
+  .signup-text-container{
+    width:100vw;
+    margin-top: 2vh;
+  }
+  .setup-fields{
+    width:100vw;
+    height:60vh;
+  }
+  .signup-input{
+    width:80vw;
+    justify-self:flex-start;
+    padding-inline: 5%;
+  }
+  .signup-continue{
+    width:80vw;
+    align-self: center;
+    display:flex;
+  }
+  .setup-logo{
+    display:none;
+  }
+  .setupaccount-field{
+    justify-self: flex-start;
+  }
+  a:active, a:link, a:hover{
+    color:black;
+    text-decoration: underline;
+  }
+  .setup-fields-comp{
+    padding-inline-start: 4%;
+  }
+}
