@@ -7,9 +7,10 @@
     position:fixed;
     background-color: white;
     /* width: fit-content; */
-    width:90%;
+    width:100%;
     justify-self: center;
-    left:4%;
+    width:95%;
+    padding-inline: 2.5%;
     top:0;
     z-index: 1000;
 }
@@ -24,6 +25,7 @@
     justify-content: space-around;
     align-items: center;
     gap: 2vw;
+    width:40vw;
 }
 
 .header-left-side span, .header-right-side span{
@@ -84,4 +86,10 @@
 .header-container span:hover{
     background-color: #F0F3FF;
     color: #5034FF;
+}
+
+@media (max-width:1400px) {
+    .header-arrow-icon{
+        width:10vw;
+    }
 }

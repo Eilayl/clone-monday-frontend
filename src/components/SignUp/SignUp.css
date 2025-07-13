@@ -23,7 +23,6 @@
     flex-direction: column;
     text-align: center;
     align-self: center;
-    align-items: center;
 }
 
 .signup-title{
@@ -37,32 +36,13 @@
     font-weight: 400;
 }
 
-.divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 20px 0;
-  align-self: center;
-}
-
-.divider .line {
-  flex: 1;
-  height: 1px;
-  background-color: #ccc;
-  border: none;
-}
-
-.divider .text {
-  padding: 0 10px;
-  font-weight: 500;
-  color: #333;
-}
-
 .signup-input{
   height:5vh;
-  width:100%;
+  width:30vw;
   font-size: 17px;
   border-radius:5px;
+  justify-self: flex-start;
+  display: flex;
 }
 
 .signup-input::placeholder{
@@ -87,7 +67,7 @@
 .terms-and-privacy-note{
   font-size: 18px;
   width:60%;
-  text-align: center;
+  align-self: center;
   padding:2%;
 
 }
@@ -107,4 +87,45 @@ a:active, a:link, a:visited{
   color:red;
   display:flex;
   align-self: flex-start;
+}
+
+.create-account-title{
+  font-size:30px;
+  padding-inline-start: 1%;
+  display:flex;
+  font-weight: 600;
+}
+
+.setupaccount-field{
+  font-size: 15px;
+  padding:0.5%;
+  text-align: left;
+  font-weight: 400;
+}
+
+.setup-fields .setupaccount-field{
+  margin-top: 4vh;
+  display: flex;
+}
+
+.setup-fields{
+  height: 35vh;
+  width:35vw;
+  overflow-y: scroll;
+}
+.setup-logo{
+  width:10vw;
+  position:absolute;
+  top:10%;
+}
+@media (max-width: 1400px){
+  .terms-and-privacy-note{
+    font-size: 12px;
+    align-self: center;
+  }
+
+  a:active, a:link, a:hover{
+    color:black;
+    text-decoration: underline;
+  }
 }
