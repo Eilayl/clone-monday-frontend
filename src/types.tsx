@@ -3,3 +3,7 @@ export type SignUpField ={
     password: String,
     phone: String
 }
+
+export type SignUpFieldsRef = {
+  CheckFields: () => boolean;
+};

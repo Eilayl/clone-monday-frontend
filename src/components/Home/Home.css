@@ -49,6 +49,10 @@
     justify-content: center;
 }
 
+.home-mobile-error{
+    text-align: center;
+    color:red
+}
 .review-title-mobile{
     font-weight: bolder;
     font-size: 40px;

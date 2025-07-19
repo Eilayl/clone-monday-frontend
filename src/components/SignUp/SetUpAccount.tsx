@@ -1,46 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import setupaccount from '@/assets/images/set-up-your-account.avif';
 import surveyImage from '@/assets/images/what-brings-you-here-today.avif';
 import logo from '@/assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { SignUpFields } from '@/atoms/SignUpFields';
-import { SignUpField } from '@/types';
+import { SignUpFields } from '@/atoms/SignUpFields/SignUpFields';
+import { SignUpField, SignUpFieldsRef } from '@/types';
 import { Survey } from '../../atoms/Survey/Survey';
-
-const surveyQuestions = [
-  {
-    title: "What brings you here?",
-    answers: ["School", "Business Owner", "Work"]
-  },
-  {
-    title: "What best describes your current role?",
-    answers: ["Developer", "Designer", "Product Manager", "Student", "Other"]
-  },
-  {
-    title: "How comfortable are you with using technology?",
-    answers: ["Very comfortable", "Somewhat comfortable", "Not comfortable"]
-  },
-  {
-    title: "How often do you use similar platforms?",
-    answers: ["Daily", "A few times a week", "Rarely", "This is my first time"]
-  },
-  {
-    title: "What would you like to achieve using our product?",
-    answers: ["Save time", "Collaborate better", "Manage projects", "Learn new skills"]
-  }
-];
+import { surveyQuestions } from '@/assets/data/surveyQuestions';
 
 export const SetUpAccount = () => {
   const [stage, setStage] = useState(0); // 0 = SignUp, 1 = Survey, 2 = Done
   const [fields, setFields] = useState<SignUpField | null>(null);
-  const [fieldError, setFieldsError] = useState(true);
   const [surveyIndex, setSurveyIndex] = useState(0);
   const [surveyResponses, setSurveyResponses] = useState<{ [index: number]: string }>({});
-  const navigate = useNavigate();
 
-  const handleFieldChange = ({ name, password, phone }: SignUpField, error: boolean) => {
+  const navigate = useNavigate();
+  const signUpRef = useRef<SignUpFieldsRef>(null);
+
+  const handleFieldChange = ({ name, password, phone }: SignUpField) => {
     setFields({ name, password, phone });
-    setFieldsError(error);
   };
 
   const handleSurveySelect = (answer: string) => {
@@ -54,11 +32,14 @@ export const SetUpAccount = () => {
   useEffect(() => {
     console.log(surveyResponses);
   }, [surveyResponses])
+
+
+  
   const handleContinue = () => {
     if (stage === 0) {
-      if (!fieldError) {
-        setStage(1);
-      }
+      const isValid = signUpRef.current?.CheckFields();
+      if (!isValid) return;
+        else setStage(1);
     } else if (stage === 1) {
       if (surveyResponses[surveyIndex]) {
         if (surveyIndex < surveyQuestions.length - 1) {
@@ -68,7 +49,7 @@ export const SetUpAccount = () => {
           console.log("Survey responses:", surveyResponses);
           console.log("User data:", fields);
           setStage(2);
-          navigate("/dashboard"); // or wherever
+          navigate("/homeforusers"); 
         }
       }
     }
@@ -80,13 +61,15 @@ export const SetUpAccount = () => {
     return ""; // Or some final image
   };
 
+
   return (
     <div className="signup-container">
       <div className="remain-width">
         <div className="signup-text-container">
           <img src={logo} className="setup-logo" />
+            {/*article */}
           <div className="setup-fields">
-            {stage === 0 && <SignUpFields onChange={handleFieldChange} />}
+            {stage === 0 && <SignUpFields onChange={handleFieldChange} ref={signUpRef}/>}
             {stage === 1 && (
               <Survey
                 questionIndex={surveyIndex}
@@ -95,17 +78,14 @@ export const SetUpAccount = () => {
                 questions={surveyQuestions}
               />
             )}
-            {stage === 2 && <div className="thank-you">Thank you! 🎉</div>}
           </div>
-          {stage < 2 && (
+          {/*Continue button */}
             <button
               className="signup-continue"
               onClick={handleContinue}
-              disabled={stage === 0 ? fieldError : !surveyResponses[surveyIndex]}
             >
               Continue
             </button>
-          )}
         </div>
       </div>
       <img src={getImage()} className="welcome-image" />
