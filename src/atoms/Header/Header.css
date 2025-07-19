@@ -16,8 +16,8 @@
 }
 
 .header-logo{
-    width:12vw;
-    aspect-ratio: 4;
+    height:7vh;
+    aspect-ratio: 2/1;
 }
 .header-left-side, .header-right-side {
     display: flex;
@@ -88,7 +88,7 @@
     color: #5034FF;
 }
 
-@media (max-width:1400px) {
+@media (max-width < 1400px) {
     .header-arrow-icon{
         width:10vw;
     }
