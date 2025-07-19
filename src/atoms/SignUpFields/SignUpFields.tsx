@@ -1,28 +1,44 @@
-import { SignUpField } from "@/types";
-import { useEffect, useState } from "react";
+
+import { SignUpField, SignUpFieldsRef } from "@/types";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 type Props = {
-onChange: ({ name, password, phone }: SignUpField, error: boolean) => void;
+onChange: ({ name, password, phone }: SignUpField) => void;
 }
-export const SignUpFields = ({onChange}: Props) => {
+
+export const SignUpFields = forwardRef<SignUpFieldsRef, Props>(({ onChange }, ref) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
     const [nameError, setNameError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [phoneError, setPhoneError] = useState('')
-    useEffect(() => {
-        onChange({name, password, phone}, (nameError === '' && passwordError === '' && phoneError==='' && name.length > 0 && password.length > 0 && phone.length > 0) ? false : true)
-    }, [name, password,phone])
 
     const CheckFields = () => {
-        if(name.length < 3)
+        let isValid = true;
+        if(name.trim().length < 3){
             setNameError('The Name is too short')
-        if(password.length<9)
+            isValid = false;
+        }
+        if(password.length<9){
             setPasswordError("Password is too short")
-        if(phone.length != 10 || !phone.startsWith('0'))
+            isValid = false;
+        }
+        if(phone.length != 10 || !phone.startsWith('0')){
             setPhoneError("Invalid Phone number")
+            isValid = false;
+        }
+        return isValid;
     }
+
+    useImperativeHandle(ref, () => ({
+        CheckFields
+    }));
+
+    useEffect(() => {
+        const error = nameError || passwordError || phoneError;
+        onChange({name, password, phone});
+    }, [name, password, phone, nameError, passwordError, phoneError]);
     return(
         <div className="setup-fields-comp">
             <span className="create-account-title">Create an account</span>
@@ -37,4 +53,4 @@ export const SignUpFields = ({onChange}: Props) => {
                     <span className="signup-error">{phoneError}</span>
         </div>
     )
-}
+})

@@ -8,17 +8,18 @@ export const HomeMobile = () => {
     const navigate = useNavigate();
     const[input, setInput] = useState('');
     const[error, setError] = useState('');
-    const CheckEmail = () => {
-        if(!input.includes('@') || !input.includes('.com'))
-            setError("Please enter a valid email address")
-        else {
-            setError('');
-            FirstAuth();
-        }
+const CheckEmail = () => {
+    const emailRegex = /^[^@]+@[^@]+\.com$/;
+    if (!emailRegex.test(input) || input.length < 6)
+        setError("Please enter a valid email address");
+    else {
+        setError('');
+        FirstAuth();
     }
+}
 
     const FirstAuth = () => {
-        if(input.includes('@') && input.includes('.com'))
+        if(input.includes('@') && input.includes('.com') && input.length > 6)
             navigate('../users/signupsteps')
     }
   return (
@@ -31,6 +32,7 @@ export const HomeMobile = () => {
                     <hr className="line" />
                     </div>
             <input value={input} onChange={(e) => setInput(e.target.value)}className="email-input" placeholder="Enter your work email"/>
+            <span className="home-mobile-error">{error}</span>
             <button className="purple-button" onClick={() => {CheckEmail()}}>Get Started
           <img src={arrowicon} className="header-arrow-icon"/>  
         </button>
