@@ -25,7 +25,10 @@ const CheckEmail = () => {
   return (
         <div className="home-mobile-container">
             <span className="review-title-mobile">Your go-to<br/> work platform</span>
-            <ContinueWithGoogle style={{width:'80%', alignSelf:'center', marginTop:'5vh'}} navigation={'/users/signupsteps'}/>
+            <ContinueWithGoogle
+  style={{marginTop:'7vh', width:'100%', alignSelf:'center'}}
+  navigation={() => navigate('../users/signupsteps', { state: { stage: 1 } })}
+/>
             <div className="divider" style={{width:'80%'}}>
                     <hr className="line" />
                     <span className="text">Or</span>
