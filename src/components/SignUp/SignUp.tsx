@@ -20,7 +20,7 @@ export const SignUp = () => {
 
     const FirstAuth = () => {
         if(input.includes('@') && input.includes('.com'))
-            navigate('../users/signupsteps')
+            navigate('../users/signupsteps', { state: { stage: 0, email: input } })
     }
 
     return(

@@ -6,10 +6,16 @@ import { useScreenWidth } from '@/context/ScreenSizesProvider';
 import { HomeMobile } from './HomeMobile';
 import './Home.css'
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from 'react';
+import { useEmail } from '@/context/GoogleProvider';
 export default function Home() {
   const navigate = useNavigate();
   let isMobile = useScreenWidth() < 1300 ? true : false  
+  const {setEmail } = useEmail();
+  
+  useEffect(() => {
+    setEmail('');
+  }, [])
     return (
     <div>
         { !isMobile? <Header /> : <HeaderMobile/>}

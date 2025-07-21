@@ -20,7 +20,7 @@ const CheckEmail = () => {
 
     const FirstAuth = () => {
         if(input.includes('@') && input.includes('.com') && input.length > 6)
-            navigate('../users/signupsteps')
+            navigate('../users/signupsteps', { state: { stage: 0, email:input }})
     }
   return (
         <div className="home-mobile-container">

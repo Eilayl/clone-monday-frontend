@@ -7,3 +7,8 @@ export type SignUpField ={
 export type SignUpFieldsRef = {
   CheckFields: () => boolean;
 };
+
+export type SurveyType = {
+  question: string;
+  answer: string;
+};
