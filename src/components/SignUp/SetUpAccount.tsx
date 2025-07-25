@@ -7,8 +7,9 @@ import { SignUpFields } from '@/atoms/SignUpFields/SignUpFields';
 import { SignUpField } from '@/types';
 import { Survey } from '../../atoms/Survey/Survey';
 import { surveyQuestions } from '@/assets/data/surveyQuestions';
-
-
+import { useEmail } from '@/context/GoogleProvider';
+import { CreateAccount } from '@/services/AuthService';
+import { SurveyType } from '@/types';
 export const SetUpAccount = () => {
   const location = useLocation();
   const initialStage = location.state?.stage ?? 0;
@@ -16,7 +17,10 @@ export const SetUpAccount = () => {
   const [fields, setFields] = useState<SignUpField | null>(null);
   const [fieldError, setFieldsError] = useState(true);
   const [surveyIndex, setSurveyIndex] = useState(0);
-  const [surveyResponses, setSurveyResponses] = useState<{ [index: number]: string }>({});
+  const [surveyResponses, setSurveyResponses] = useState<SurveyType[]>([]);
+  const [loading, setLoading] = useState(false);
+  const webEmail = location.state?.email ?? '';
+  const { email } = useEmail(); // use this email to add user in db
   const navigate = useNavigate();
 
   const handleFieldChange = ({ name, password, phone }: SignUpField, error: boolean) => {
@@ -25,17 +29,16 @@ export const SetUpAccount = () => {
   };
 
   const handleSurveySelect = (answer: string) => {
-    setSurveyResponses(prev => ({
-      ...prev,
-      [surveyIndex]: answer
-    }));
+    const question = surveyQuestions[surveyIndex].title;
+    setSurveyResponses(prev => {
+      // Replace answer for the current question if it exists, otherwise add new
+      const filtered = prev.filter(item => item.question !== question);
+      return [...filtered, { question, answer }];
+    });
   };
 
 
-  useEffect(() => {
-    console.log(surveyResponses);
-  }, [surveyResponses])
-  const handleContinue = () => {
+  const handleContinue = async () => {
     if (stage === 0) {
       if (!fieldError) {
         setStage(1);
@@ -48,17 +51,19 @@ export const SetUpAccount = () => {
           // All questions done
           console.log("Survey responses:", surveyResponses);
           console.log("User data:", fields);
-          setStage(2);
-          navigate("/dashboard"); // or wherever
+          setLoading(true);
+          const response = await CreateAccount({email: fields != null ? webEmail : email, signupwithgoogle: fields != null ? false : true, fields: fields, survey: surveyResponses})
+          if(response.success)
+            navigate('/dashobard');
+          setLoading(false);
         }
       }
     }
   };
-
   const getImage = () => {
     if (stage === 0) return setupaccount;
     if (stage === 1) return surveyImage;
-    return ""; // Or some final image
+    return "";
   };
 
   return (
@@ -69,12 +74,12 @@ export const SetUpAccount = () => {
           <div className="setup-fields">
             {stage === 0 && <SignUpFields onChange={handleFieldChange} />}
             {stage === 1 && (
-              <Survey
-                questionIndex={surveyIndex}
-                responses={surveyResponses}
-                onSelect={handleSurveySelect}
-                questions={surveyQuestions}
-              />
+<Survey
+  questionIndex={surveyIndex}
+  responses={surveyResponses}
+  onSelect={handleSurveySelect}
+  questions={surveyQuestions}
+  />
             )}
             {stage === 2 && <div className="thank-you">Thank you! 🎉</div>}
           </div>

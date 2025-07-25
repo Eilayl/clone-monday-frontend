@@ -5,10 +5,12 @@ import { NotFound } from './components/NotFound/NotFound';
 import { ScreenSizesProvider } from './context/ScreenSizesProvider';
 import { SignUp } from './components/SignUp/SignUp';
 import { SetUpAccount } from './components/SignUp/SetUpAccount';
+import { GoogleProvider } from './context/GoogleProvider';
 function App() {
 
   return(
     <ScreenSizesProvider>
+      <GoogleProvider>
       <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -17,6 +19,7 @@ function App() {
         <Route path="/users/signupsteps" element={<SetUpAccount/>} />
       </Routes>
     </Router>
+      </GoogleProvider>
     </ScreenSizesProvider>
   )
 }
