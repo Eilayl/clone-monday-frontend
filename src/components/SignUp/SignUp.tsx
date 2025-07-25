@@ -10,17 +10,12 @@ export const SignUp = () => {
     const navigate = useNavigate();
 
     const CheckEmail = () => {
-        if(!input.includes('@') || !input.includes('.com'))
+        setError('');
+          const regex = /^[^@]+@[^@]+\.com$/;
+        if(!regex.test(input))
             setError("Please enter a valid email address")
-        else {
-            setError('');
-            FirstAuth();
-        }
-    }
+        else navigate('../users/signupsteps', { state: { stage: 0, email: input } })
 
-    const FirstAuth = () => {
-        if(input.includes('@') && input.includes('.com'))
-            navigate('../users/signupsteps', { state: { stage: 0, email: input } })
     }
 
     return(
@@ -38,7 +33,7 @@ export const SignUp = () => {
                     <input placeholder="name@company.com" onFocus={() => setError('')} onBlur={() => CheckEmail()}
                     ref={inputRef} value={input} style={{border: error != '' ? '1px solid red' : '1px solid gainsboro'}}
                      onChange={(e) => setInput(e.target.value)} className="signup-input"
-                     onKeyDown={(e) => {if (e.key === 'Enter') FirstAuth();}}/>
+                     onKeyDown={(e) => {if (e.key === 'Enter') CheckEmail();}}/>
                     <span className="signup-error">{error}</span>
                     <button className="signup-continue" onClick={() => {CheckEmail()}}>Continue</button>
                     <span className="terms-and-privacy-note">By proceeding, you agree to the <a href="terms-of-service">Terms of Service</a> and <a href="privacy-policy">Privacy Policy</a></span>
