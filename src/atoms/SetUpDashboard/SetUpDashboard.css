@@ -1,0 +1,32 @@
+.setupdashboard-container{
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+    width:50%;
+    gap:0.5vh;
+}
+
+.setupdashboard-container .title{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.setupdashboard-container .subtitle{
+    font-size: 15px;
+    font-weight: 200;
+}
+
+.gray-background{
+    display:flex;
+    width:fit-content;
+    background-color: #f3f3f3;
+    height:fit-content;
+    padding:2%;
+    margin-top: 5%;
+}
+
+input{
+    height:3vh;
+    font-size: 20px;
+    padding-inline-start: 2%;
+}
