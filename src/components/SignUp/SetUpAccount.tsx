@@ -60,7 +60,7 @@ export const SetUpAccount = () => {
       }
     }
   };
-
+//a
   const getImage = () => {
     if (stage === 0) return setupaccount;
     if (stage === 1) return surveyImage;
