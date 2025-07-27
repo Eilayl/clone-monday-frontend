@@ -15,7 +15,7 @@ export const CreateAccount = async ({ email, signupwithgoogle, fields, survey } 
             signupwithgoogle,
             fields,
             survey
-        });
+        }, {withCredentials:true});
         return { success: true, data: response.data };
     }
     catch (error) {
@@ -30,12 +30,13 @@ export const CreateAccount = async ({ email, signupwithgoogle, fields, survey } 
     }
 }
 
-export const CheckEmail = async (email: string) => {
+//yes, sign in not contain a password. I make it easier for u -_- (no security)
+export const SignIn = async (email: string) => {
     try{
         const URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
         const response = await axios.post(`${URL}/auth/signin`, {
             email
-        });
+        }, {withCredentials:true});
         return { success: true, data: response.data };
     }
     catch (error) {

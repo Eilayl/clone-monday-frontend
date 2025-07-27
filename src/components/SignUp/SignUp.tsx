@@ -3,17 +3,20 @@ import WelcomeImage from "@/assets/images/welcome-to-monday.avif"
 import './SignUp.css'
 import { ContinueWithGoogle } from "@/atoms/ContinueWithGoogle"
 import { useNavigate } from "react-router-dom"
+import { SignIn } from "@/services/AuthService"
 export const SignUp = () => {
     const [input, setInput] = useState('');
     const [error, setError] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    const CheckEmail = () => {
+    const CheckEmail = async () => {
         setError('');
           const regex = /^[^@]+@[^@]+\.com$/;
         if(!regex.test(input))
-            setError("Please enter a valid email address")
+            return setError("Please enter a valid email address")
+        const response = await SignIn(input);
+        if(response.success) navigate('/dashboard')
         else navigate('../users/signupsteps', { state: { stage: 0, email: input } })
 
     }

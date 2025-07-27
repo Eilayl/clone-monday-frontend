@@ -1,13 +1,13 @@
 
 import { useEffect, useState } from "react"
 import './SetUpDashboard.css'
+import { useScreenWidth } from "@/context/ScreenSizesProvider";
 export type SetUpDashboard = {
     onChange: (value: String) => void;
 }
 
 export const SetUpDashboard = ({onChange}: SetUpDashboard) => {
     const [value, setValue] = useState('');
-
 
     useEffect(() => {
         onChange(value)

@@ -1,0 +1,11 @@
+.loading{
+    display:flex;
+    align-items: center;
+    justify-self: center;
+    height:100vh;
+}
+
+.loading img{
+    width:5vw;
+    aspect-ratio: 1/1;
+}

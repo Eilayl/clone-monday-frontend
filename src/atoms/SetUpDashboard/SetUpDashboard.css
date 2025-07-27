@@ -30,3 +30,9 @@ input{
     font-size: 20px;
     padding-inline-start: 2%;
 }
+
+@media (max-width: 1300px) {
+    .setupdashboard-container{
+        justify-self:center;   
+    }   
+}

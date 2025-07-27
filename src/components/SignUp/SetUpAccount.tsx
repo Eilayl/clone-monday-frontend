@@ -12,6 +12,8 @@ import { useEmail } from '@/context/GoogleProvider';
 import { CreateAccount } from '@/services/AuthService';
 import { SurveyType } from '@/types';
 import { SetUpDashboard } from '@/atoms/SetUpDashboard/SetUpDashboard';
+import { useScreenWidth } from '@/context/ScreenSizesProvider';
+import { CreateDashboard } from '@/services/DashboardService';
 
 
 export const SetUpAccount = () => {
@@ -27,7 +29,7 @@ export const SetUpAccount = () => {
   const webEmail = location.state?.email ?? '';
   const { email } = useEmail(); // use this email to add user in db
   const navigate = useNavigate();
-
+  const isMobile = useScreenWidth() < 1300 ? true : false;
   const handleFieldChange = ({ name, password, phone }: SignUpField, error: boolean) => {
     setFields({ name, password, phone });
     setFieldsError(error);
@@ -54,8 +56,6 @@ const handleContinue = async () => {
         setSurveyIndex(prev => prev + 1);
       } else {
         // All questions done
-        console.log("Survey responses:", surveyResponses);
-        console.log("User data:", fields);
         setLoading(true);
         const response = await CreateAccount({
           email: fields != null ? webEmail : email,
@@ -71,7 +71,9 @@ const handleContinue = async () => {
     }
   } else if (stage === 2) {
     if (input !== '') {
-      navigate("/dashboard");
+      const response = await CreateDashboard(input);
+      if(response.success) return navigate("/dashboard");
+      else alert("error adding item into dashboard")
     }
   }
 };
@@ -116,7 +118,7 @@ const handleContinue = async () => {
       </div>
       <div style={{position:'relative'}}>
       <img src={getImage()} className="welcome-image" />
-      {stage == 2 && (
+      {stage == 2 && !isMobile && (
         <div>
         <span style={{zIndex:1, position:'absolute', top:'28%', left:'8%', fontSize:'50px'}}>{input}</span>
         <span style={{zIndex:1, position:'absolute', top:'2%', right:'5%', fontSize:'30px'}}>X</span>

@@ -3,32 +3,32 @@ import { ContinueWithGoogle } from '@/atoms/ContinueWithGoogle';
 import { useNavigate } from 'react-router-dom';
 import arrowicon from "@/assets/images/arrowicon.svg";
 import { useState } from 'react';
+import { SignIn } from '@/services/AuthService';
 
 export const HomeMobile = () => {
     const navigate = useNavigate();
     const[input, setInput] = useState('');
     const[error, setError] = useState('');
-const CheckEmail = () => {
-    const emailRegex = /^[^@]+@[^@]+\.com$/;
-    if (!emailRegex.test(input) || input.length < 6)
-        setError("Please enter a valid email address");
-    else {
-        setError('');
-        FirstAuth();
-    }
-}
 
-    const FirstAuth = () => {
-        if(input.includes('@') && input.includes('.com') && input.length > 6)
-            navigate('../users/signupsteps', { state: { stage: 0, email:input }})
-    }
+        const CheckEmail = async () => {
+            setError('');
+              const regex = /^[^@]+@[^@]+\.com$/;
+            if(!regex.test(input))
+                return setError("Please enter a valid email address")
+            const response = await SignIn(input);
+            if(response.success) navigate('/dashboard')
+            else navigate('../users/signupsteps', { state: { stage: 0, email: input } })
+    
+        }
+    
+
   return (
         <div className="home-mobile-container">
             <span className="review-title-mobile">Your go-to<br/> work platform</span>
             <ContinueWithGoogle
-  style={{marginTop:'7vh', width:'100%', alignSelf:'center'}}
-  navigation={() => navigate('../users/signupsteps', { state: { stage: 1 } })}
-/>
+                style={{marginTop:'7vh', width:'100%', alignSelf:'center'}}
+                navigation={() => navigate('../users/signupsteps', { state: { stage: 1 } })}
+                />
             <div className="divider" style={{width:'80%'}}>
                     <hr className="line" />
                     <span className="text">Or</span>
