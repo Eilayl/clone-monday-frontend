@@ -7,9 +7,11 @@ import { SignUp } from './components/SignUp/SignUp';
 import { SetUpAccount } from './components/SignUp/SetUpAccount';
 import { GoogleProvider } from './context/GoogleProvider';
 import { Dashboard } from './components/Dashboard/Dashboard';
+import { LoadingProvider } from './context/LoadingProvider';
 function App() {
 
   return(
+    <LoadingProvider>
     <ScreenSizesProvider>
       <GoogleProvider>
       <Router>
@@ -24,6 +26,7 @@ function App() {
     </Router>
       </GoogleProvider>
     </ScreenSizesProvider>
+    </LoadingProvider>
   )
 }
 

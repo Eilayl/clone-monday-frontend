@@ -16,7 +16,7 @@ export const SignUp = () => {
         if(!regex.test(input))
             return setError("Please enter a valid email address")
         const response = await SignIn(input);
-        if(response.success) navigate('/dashboard')
+        if(response.success) navigate('/dashboard/test')
         else navigate('../users/signupsteps', { state: { stage: 0, email: input } })
 
     }

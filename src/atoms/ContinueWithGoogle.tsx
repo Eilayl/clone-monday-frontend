@@ -18,7 +18,7 @@ export const ContinueWithGoogle: React.FC<ContinueWithGoogleProps> = ({ style, n
       setEmail(decoded.email);
       const isExists = await SignIn(decoded.email);
       if(isExists.success)
-        return navigate('/dashboard')
+        return navigate('/dashboard/test')
       else navigation();
     } else {
       console.error("No credential found.");

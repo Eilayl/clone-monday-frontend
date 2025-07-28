@@ -36,6 +36,7 @@ export type DashboardType = {
 
 export type Define = {
   key: string;
+  title: string;
   type: 'text' | 'date' | 'user' | 'status' | 'file' | 'timeline';
   required: boolean;
 };

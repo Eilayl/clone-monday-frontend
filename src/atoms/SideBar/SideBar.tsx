@@ -7,6 +7,7 @@ import more from '@/assets/images/sidebaricons/more.svg';
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { CreateDashboard, DeleteDashboard } from '@/services/DashboardService'
+import { useLoading } from '@/context/LoadingProvider'
 type SideBarProps = {
     dashboards: DashboardType[];
     current?: string;
@@ -16,9 +17,11 @@ export const SideBar = ({dashboards, current} : SideBarProps) => {
     const [addItemViewBox, setAddItemViewBox] = useState(false);
     const [additemError, setAddItemError] = useState('')
     const [addItemInput, setAddItemInput] = useState('');
+    const {setLoading} = useLoading();
     const  navigate = useNavigate();
 
     const addItem = async () => {
+        setLoading(true);
         const response = await CreateDashboard(addItemInput);
         if(response.success){
             navigate(`/dashboard/${addItemInput}`)
@@ -26,12 +29,19 @@ export const SideBar = ({dashboards, current} : SideBarProps) => {
         }
         //@ts-ignore
         else if(response.error?.error) setAddItemError(String(response.error.error))
+        setLoading(false);
     }
 
     const RemoveDashboard = async (item: string) => {
+        setLoading(true);
         const response = await DeleteDashboard(item);
-        if(response.success)
-            navigate('/dashboard')
+        if(response.success){
+                navigate(`/dashboard/${dashboards[0].name}`)
+            setAddItemViewBox(false);
+        }
+        //@ts-ignore
+        else if(response.error?.error) console.log(String(response.error.error))
+        setLoading(false);
     }
     return(
         <div className="sidebar-container">

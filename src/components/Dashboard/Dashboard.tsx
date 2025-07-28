@@ -8,12 +8,12 @@ import { DashboardType } from '@/types';
 import { useNavigate, useParams } from 'react-router-dom';
 import search from '@/assets/images/headericons/search.svg';
 import { useScreenWidth } from '@/context/ScreenSizesProvider';
-import { fakedashboard } from '@/assets/data/fakedashboard';
 import { Group } from '@/atoms/Group/Group';
+import { useLoading } from '@/context/LoadingProvider';
 
 export const Dashboard = () => {
     const {dashboard} = useParams();
-    const [loading, setLoading] = useState(true);
+    const {loading, setLoading} = useLoading();
     const [dashboarditems, setDashboardItems] = useState<DashboardType[]>([])
     const [currentDashboard, setCurrentDashboard] = useState<DashboardType | null>(null);
     
