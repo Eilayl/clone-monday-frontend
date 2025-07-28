@@ -19,7 +19,7 @@ function App() {
         <Route path="*" element={<NotFound/>}/> 
         <Route path="/users/signupsteps" element={<SetUpAccount/>} />
         <Route path="/userPage" element={<SetUpAccount/>} />
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/dashboard/:dashboard" element={<Dashboard/>}/>
       </Routes>
     </Router>
       </GoogleProvider>

@@ -1,0 +1,46 @@
+.group-container .title{
+    font-size:20px;
+}
+
+.group-container{
+    margin-top:5vh;
+}
+
+.group-container .column-title{
+    font-size: 15px;
+    width:fit-content;
+    min-width:5vw;
+    text-align: center;
+}
+
+.group-container table{
+    margin-top:1vh;
+}
+.group-container table td,
+.group-container table th {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    border-collapse: collapse; 
+}
+
+.group-container table {
+    border-collapse: collapse;
+}
+
+
+.last{
+    width: 1000vw;
+    font-size: 20px;
+}
+
+.group-container input:hover{
+    border: 1px solid black;
+}
+.group-container input{
+    border: none;
+}
+
+.group-container ::placeholder{
+    font-size: 15px;
+}

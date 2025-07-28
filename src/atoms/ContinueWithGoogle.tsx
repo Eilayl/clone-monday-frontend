@@ -2,6 +2,7 @@ import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { useEmail } from '@/context/GoogleProvider';
+import { SignIn } from '@/services/AuthService';
 
 interface ContinueWithGoogleProps {
   style?: React.CSSProperties;
@@ -10,12 +11,15 @@ interface ContinueWithGoogleProps {
 
 export const ContinueWithGoogle: React.FC<ContinueWithGoogleProps> = ({ style, navigation }) => {
   const { setEmail } = useEmail();
-  const handleLoginSuccess = (credentialResponse: CredentialResponse) => {
+  const navigate = useNavigate();
+  const handleLoginSuccess = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       const decoded: any = jwtDecode(credentialResponse.credential);
-      setEmail(decoded.email); // <-- Correct way to set email
-      navigation();
-      console.log("Decoded user:", decoded);
+      setEmail(decoded.email);
+      const isExists = await SignIn(decoded.email);
+      if(isExists.success)
+        return navigate('/dashboard')
+      else navigation();
     } else {
       console.error("No credential found.");
     }

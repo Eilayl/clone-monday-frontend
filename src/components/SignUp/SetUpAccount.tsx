@@ -55,7 +55,7 @@ const handleContinue = async () => {
       if (surveyIndex < surveyQuestions.length - 1) {
         setSurveyIndex(prev => prev + 1);
       } else {
-        // All questions done
+        // All questions done 
         setLoading(true);
         const response = await CreateAccount({
           email: fields != null ? webEmail : email,
@@ -72,7 +72,7 @@ const handleContinue = async () => {
   } else if (stage === 2) {
     if (input !== '') {
       const response = await CreateDashboard(input);
-      if(response.success) return navigate("/dashboard");
+      if(response.success) return navigate(`/dashboard/${input}`);
       else alert("error adding item into dashboard")
     }
   }

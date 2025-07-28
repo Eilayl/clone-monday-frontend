@@ -1,31 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
 import loadinganimation from '@/assets/animations/simpleloader.svg';
-import { GetDashboard } from '@/services/DashboardService';
+import { GetDashboards } from '@/services/DashboardService';
+import { LoggedHeader } from '@/atoms/LoggedHeader/LoggedHeader';
+import { SideBar } from '@/atoms/SideBar/SideBar';
+import { DashboardType } from '@/types';
+import { useNavigate, useParams } from 'react-router-dom';
+import search from '@/assets/images/headericons/search.svg';
+import { useScreenWidth } from '@/context/ScreenSizesProvider';
+import { fakedashboard } from '@/assets/data/fakedashboard';
+import { Group } from '@/atoms/Group/Group';
 
 export const Dashboard = () => {
+    const {dashboard} = useParams();
     const [loading, setLoading] = useState(true);
-    type DashboardType = {
-        name: string
-    }
     const [dashboarditems, setDashboardItems] = useState<DashboardType[]>([])
+    const [currentDashboard, setCurrentDashboard] = useState<DashboardType | null>(null);
+    
+    const isMobile = useScreenWidth() < 1300 ? true : false 
+    const navigate = useNavigate();
     const fetchDashboardData = async () => {
-        // הוספת השהיה של 2 שניות (2000 מילישניות)
-        setTimeout(async () => {
-            const response = await GetDashboard();
+            setLoading(true);
+            const response = await GetDashboards();
             if (response.success) {
                 setLoading(false);
-                setDashboardItems(response.data.dashboards)
+                const dashboards = response.data.dashboards
+                setDashboardItems(dashboards)
+                const found = dashboards.find((item: DashboardType) => item.name === dashboard);
+                if(found) setCurrentDashboard(found)
+                    else {
+                navigate(`/dashboard/${dashboards[0].name}`)
+                setCurrentDashboard(dashboards[0])        
+            }
                 console.log(response.data);
             } else {
                 alert("ERROR: " + response.error);
             }
-        }, 2000);
     };
 
     useEffect(() => {
         fetchDashboardData();
-    }, []);
+    }, [dashboard]);
 
     if (loading) {
         return (
@@ -34,11 +49,31 @@ export const Dashboard = () => {
             </div>
         );
     }
-    
-    return (
-        <div>
-            <span>{dashboarditems.map((item) => item.name)}</span>
-
+    if (!isMobile){
+        return (
+            <div className='dashboard-container'>
+            <LoggedHeader/>
+            <div className="horizontal-homepage">
+            <SideBar dashboards={dashboarditems} current={currentDashboard?.name}/>
+            <div className="dashboard-dashboard">
+            <span className="title">{currentDashboard?.name}</span>
+            <div className='dashboard-tools'>
+                <button>New task</button>
+                <div className="item">
+                    <img src={search}/>
+                    <span>Search</span>
+                    </div>
+            </div>
+            {currentDashboard?.groups.map((group) => <Group group={group} dashboard={currentDashboard}/>)}
+            {/* {fakedashboard.groups.map((group) => <Group group={group} dashboard={fakedashboard}/>)} */}
+            </div>
+            </div>
         </div>
     );
+    }
+    else return(
+        <div><h1>Please log in through your PC</h1></div>
+    )
 };
+
+
