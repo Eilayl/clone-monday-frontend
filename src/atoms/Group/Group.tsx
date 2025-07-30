@@ -13,14 +13,27 @@ export const Group = ({ group, dashboard }: GroupProps) => {
   const [addTask, setTask] = useState('');
   const [groupState, setGroupState] = useState<GroupType>(group);
   const [dashboardState, setDashboardState] = useState<DashboardType>(dashboard);
-  const [OpenColumnView, setOpenColumnView ] = useState(false);
-  const [type, setType] = useState('')
+  const [OpenColumnView, setOpenColumnView] = useState(false);
+  const [type, setType] = useState('');
+
   const AddNewTask = () => {
     if (addTask.trim() !== '') {
+      const newItem: Record<string, any> = {
+        taskName: addTask,
+      };
+
+      // מוסיף שדות ריקים לכל עמודות הקיימות
+      dashboardState.defines.forEach((def) => {
+        if (!(def.key in newItem)) {
+          newItem[def.key] = "";
+        }
+      });
+
       const updatedGroup = {
         ...groupState,
-        items: [...groupState.items, { taskName: addTask }]
+        items: [...groupState.items, newItem],
       };
+
       setGroupState(updatedGroup);
       setTask('');
     }
@@ -28,24 +41,30 @@ export const Group = ({ group, dashboard }: GroupProps) => {
 
   const DeleteItem = (index: number) => {
     const updatedItems = groupState.items.filter((_, i) => i !== index);
-    const updatedGroup = {
+    setGroupState({
       ...groupState,
-      items: updatedItems
-    };
-    setGroupState(updatedGroup);
+      items: updatedItems,
+    });
   };
 
   const CreateColumn = () => {
-    dashboard.defines.push(
-      {
-            key: crypto.randomUUID(),
-            title: type === "Text" ? "Text" : type === "Date" ? "Date" : type === "Status" ? "Status" : '',
-            type: type === "Text" ? "text" : type === "Date" ? "date" : type === "Status" ? "status" : 'text',
-            required: false
-        },)
-        setOpenColumnView(false);
-    
-  }
+    const newDefine = {
+      key: crypto.randomUUID(),
+      title: type === "Text" ? "Text" : type === "Date" ? "Date" : type === "Status" ? "Status" : '',
+      type: type === "Text" ? "text" : type === "Date" ? "date" : type === "Status" ? "status" : 'text',
+      required: false
+    };
+
+    const updatedDefines = [...dashboardState.defines, newDefine];
+
+    setDashboardState({
+      ...dashboardState,
+      defines: updatedDefines,
+    });
+
+    setOpenColumnView(false);
+  };
+
   const updateColumnTitle = (index: number, newTitle: string) => {
     const updatedDefines = [...dashboardState.defines];
     updatedDefines[index] = {
@@ -65,6 +84,7 @@ export const Group = ({ group, dashboard }: GroupProps) => {
       ...updatedItems[itemIndex],
       [key]: newValue,
     };
+
     setGroupState({
       ...groupState,
       items: updatedItems,
@@ -73,8 +93,7 @@ export const Group = ({ group, dashboard }: GroupProps) => {
 
   useEffect(() => {
     const Update = async () => {
-      const response = await UpdateGroup({ dashboard: dashboardState, group: groupState, defines: dashboardState.defines });
-      // you can handle success/error here if you want
+      await UpdateGroup({ dashboard: dashboardState, group: groupState, defines: dashboardState.defines });
     };
     Update();
   }, [groupState, dashboardState]);
@@ -103,11 +122,29 @@ export const Group = ({ group, dashboard }: GroupProps) => {
             >
               <span>+</span>
               {OpenColumnView && (
-                <div className="new-column-view"  onClick={(e) => e.stopPropagation()}>
+                <div className="new-column-view" onClick={(e) => e.stopPropagation()}>
                   <span className="title">Pick one type</span>
-                  <span className="type" style={{backgroundColor:type === 'Status' ? '#cce5ff' : ''}} onClick={() => {setType('Status')}}>Status</span>
-                  <span className="type" style={{backgroundColor:type === 'Text' ? '#cce5ff' : ''}}  onClick={() => {setType('Text')}}>Text</span>
-                  <span className="type" style={{backgroundColor:type === 'Date' ? '#cce5ff' : ''}}  onClick={() => {setType('Date')}}>Date</span>
+                  <span
+                    className="type"
+                    style={{ backgroundColor: type === 'Status' ? '#cce5ff' : '' }}
+                    onClick={() => setType('Status')}
+                  >
+                    Status
+                  </span>
+                  <span
+                    className="type"
+                    style={{ backgroundColor: type === 'Text' ? '#cce5ff' : '' }}
+                    onClick={() => setType('Text')}
+                  >
+                    Text
+                  </span>
+                  <span
+                    className="type"
+                    style={{ backgroundColor: type === 'Date' ? '#cce5ff' : '' }}
+                    onClick={() => setType('Date')}
+                  >
+                    Date
+                  </span>
                   <button onClick={CreateColumn}>Choose Type</button>
                 </div>
               )}
@@ -117,15 +154,15 @@ export const Group = ({ group, dashboard }: GroupProps) => {
         <tbody>
           {groupState.items.map((item, idx) => (
             <tr key={idx}>
-              <td onClick={() => DeleteItem(idx)}>
+              <td className="delete-task" onClick={() => DeleteItem(idx)}>
                 <b>Delete</b>
               </td>
               {dashboardState.defines.map((def) => (
                 <td key={def.key}>
                   <EditableCell
-                    value={String(item[def.key]) ?? "" }
+                    value={item[def.key] ?? ""}
                     onChange={(newVal) => updateCellValue(idx, def.key, newVal)}
-                    type={String(def.type)}
+                    type={def.type || ""}
                   />
                 </td>
               ))}
@@ -133,7 +170,7 @@ export const Group = ({ group, dashboard }: GroupProps) => {
             </tr>
           ))}
           <tr>
-            <td></td> {/* Empty for checkbox column */}
+            <td></td>
             <td colSpan={dashboardState.defines.length + 1} className="add-task-row">
               <input
                 value={addTask}

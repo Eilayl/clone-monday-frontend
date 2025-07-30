@@ -55,3 +55,14 @@
     gap:0.5vh;
     align-items: center;
 }
+
+.add-new-group{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-size: 15px;
+    font-weight: 600;
+    border:1px solid black;
+    padding:10px;
+    width:fit-content;
+    border-radius: 15px;
+}

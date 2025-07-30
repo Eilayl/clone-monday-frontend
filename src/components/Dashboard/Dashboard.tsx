@@ -19,6 +19,7 @@ export const Dashboard = () => {
     
     const isMobile = useScreenWidth() < 1300 ? true : false 
     const navigate = useNavigate();
+
     const fetchDashboardData = async () => {
             setLoading(true);
             const response = await GetDashboards();
@@ -65,7 +66,9 @@ export const Dashboard = () => {
                     </div>
             </div>
             {currentDashboard?.groups.map((group) => <Group group={group} dashboard={currentDashboard}/>)}
-            {/* {fakedashboard.groups.map((group) => <Group group={group} dashboard={fakedashboard}/>)} */}
+            <div onClick={AddNewGroup} className="add-new-group">
+                <span>+ Add New Group</span>
+                </div>
             </div>
             </div>
         </div>
