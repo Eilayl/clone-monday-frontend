@@ -42,10 +42,11 @@
     padding:2%;
     justify-self: center;
     gap:10px;
+    height:2vh;
 }
 
 .see-plans span{
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 500;
     color:rgb(4, 121, 255);
     align-self: center;
@@ -63,5 +64,7 @@
 }
 
 .diamond{
+    display:flex;
+    align-self: center;
     color:rgb(4, 121, 255);
 }

@@ -15,7 +15,7 @@ export const Group = ({ group, dashboard }: GroupProps) => {
   const [dashboardState, setDashboardState] = useState<DashboardType>(dashboard);
   const [OpenColumnView, setOpenColumnView] = useState(false);
   const [type, setType] = useState('');
-
+  const [groupTitle, setGroupTitle] = useState(groupState.name);
   const AddNewTask = () => {
     if (addTask.trim() !== '') {
       const newItem: Record<string, any> = {
@@ -98,11 +98,13 @@ export const Group = ({ group, dashboard }: GroupProps) => {
     Update();
   }, [groupState, dashboardState]);
 
+  useEffect(() => {
+  setGroupState(prev => ({ ...prev, name: groupTitle }));
+}, [groupTitle]);
+
   return (
     <div className="group-container">
-      <span className="title" style={{ color: groupState.color }}>
-        {groupState.name}
-      </span>
+      <input value={groupTitle} onChange={(e) => {setGroupTitle(e.target.value)}} className="title" style={{ color: groupState.color }}/>
       <table>
         <thead>
           <tr>

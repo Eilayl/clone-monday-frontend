@@ -10,9 +10,12 @@ import search from '@/assets/images/headericons/search.svg';
 import { useScreenWidth } from '@/context/ScreenSizesProvider';
 import { Group } from '@/atoms/Group/Group';
 import { useLoading } from '@/context/LoadingProvider';
+import { DiamondIcon } from '@/assets/images/headericons/diamond';
+import { GoogleMeetingFeature } from '@/atoms/GoogleMeetingFeature/GoogleMeetingFeature';
 
 export const Dashboard = () => {
     const {dashboard} = useParams();
+    const [featureView, setFeatureView] = useState(false);
     const {loading, setLoading} = useLoading();
     const [dashboarditems, setDashboardItems] = useState<DashboardType[]>([])
     const [currentDashboard, setCurrentDashboard] = useState<DashboardType | null>(null);
@@ -64,11 +67,16 @@ export const Dashboard = () => {
                     <img src={search}/>
                     <span>Search</span>
                     </div>
+                <div className="item">
+                    <DiamondIcon className="diamond"/>
+                    <span onClick={() => {setFeatureView(!featureView)}}><b><u>new Feature</u></b></span>
+                </div>
             </div>
             {currentDashboard?.groups.map((group) => <Group group={group} dashboard={currentDashboard}/>)}
-            <div onClick={AddNewGroup} className="add-new-group">
+            <div onClick={() => {alert("Not Develops yet")}} className="add-new-group">
                 <span>+ Add New Group</span>
                 </div>
+                {featureView && <GoogleMeetingFeature dashboards={dashboarditems}isClick={featureView} onChange={(isClose) => {setFeatureView(isClose)}}/>}
             </div>
             </div>
         </div>

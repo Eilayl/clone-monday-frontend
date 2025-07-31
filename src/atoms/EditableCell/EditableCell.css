@@ -11,6 +11,8 @@
   box-sizing: border-box;
   font-size: inherit;
   padding: 0.5vh;
+  display: flex;
+  justify-content: flex-start;
   border: none;
 }
 
@@ -136,3 +138,4 @@
 .calendar-day.faded {
   color: #ccc;
 }
+

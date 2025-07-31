@@ -19,6 +19,7 @@ export type Task = {
 
 // סוג של Group
 export type GroupType = {
+  id: string;
   name: string;
   color?: string;
   items: Task[];
@@ -26,6 +27,7 @@ export type GroupType = {
 
 // סוג של Dashboard
 export type DashboardType = {
+  dashboardId: string;
   userId: string;
   name: string;  // כאן - פשוט מחרוזת חופשית
   defines: Define[];
@@ -40,3 +42,12 @@ export type Define = {
   type: 'text' | 'date' | 'user' | 'status' | 'file' | 'timeline' | string;
   required: boolean;
 };
+
+export type Newtask = {
+  dashboard: string,
+  group: string,
+  tasks:{
+    item: {key: String, value: String}[]
+  }[]
+  
+}
